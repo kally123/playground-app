@@ -1,0 +1,114 @@
+<div class="customer-container">
+    <!-- Add New Customer Form -->
+    <div class="add-customer-form">
+        <h2>Add New Customer</h2>
+        <div class="form-group">
+            <input
+                    type="text"
+                    [(ngModel)]="newCustomer.title"
+                    placeholder="Customer title"
+                    class="form-control"
+                    (keyup.enter)="createCustomer()"
+            />
+        </div>
+        <div class="form-group">
+          <textarea
+                  [(ngModel)]="newCustomer.description"
+                  placeholder="Customer description (optional)"
+                  class="form-control"
+                  rows="3">
+          </textarea>
+        </div>
+        <button
+                (click)="createCustomer()"
+                class="btn btn-primary"
+                [disabled]="!newCustomer.title.trim()"
+        >
+            Add Customer
+        </button>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="loading" class="loading">
+        <p>Loading Customer...</p>
+    </div>
+
+    <!-- Customer List -->
+    <div class="customers-section" *ngIf="!loading">
+        <h2>Customers ({{customers.length}})</h2>
+
+        <div *ngIf="customers.length === 0" class="no-customers">
+            <p>No Customer yet. Create your first customer above!</p>
+        </div>
+
+        <div class="customer-list" *ngIf="customers.length > 0">
+            <div
+                    *ngFor="let customer of customers"
+                    class="customer-item"
+                    [ngClass]="{'completed': customer.completed}"
+            >
+                <!-- View Mode -->
+                <div *ngIf="editingCustomer?.id !== customer.id" class="customer-view">
+                    <div class="customer-content">
+                        <div class="customer-header">
+                            <h3 [ngClass]="{'completed-text': customer.completed}">{{customer.title}}</h3>
+                            <span class="customer-status"
+                                  [ngClass]="customer.completed ? 'status-completed' : 'status-pending'">
+                {{customer.completed ? 'Completed' : 'Pending'}}
+              </span>
+                        </div>
+                        <p *ngIf="customer.description" class="customer-description">{{customer.description}}</p>
+                        <small class="customer-date">Created: {{customer.createdAt | date:'short'}}</small>
+                    </div>
+
+                    <div class="customer-actions">
+                        <button
+                                (click)="toggleComplete(customer)"
+                                class="btn"
+                                [ngClass]="customer.completed ? 'btn-warning' : 'btn-success'"
+                        >
+                            {{customer.completed ? 'Mark Pending' : 'Mark Complete'}}
+                        </button>
+                        <button (click)="startEdit(customer)" class="btn btn-secondary">Edit</button>
+                        <button (click)="deleteCustomer(customer.id!)" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+
+                <!-- Edit Mode -->
+                <div *ngIf="editingCustomer">
+                    <div *ngIf="editingCustomer?.id === customer.id" class="customer-edit">
+                        <div class="form-group">
+                            <input
+                                    type="text"
+                                    [(ngModel)]="editingCustomer.title"
+                                    class="form-control"
+                                    placeholder="Customer title"
+                            />
+                        </div>
+                        <div class="form-group">
+                        <textarea
+                                [(ngModel)]="editingCustomer.description"
+                                class="form-control"
+                                placeholder="Customer description"
+                                rows="3">
+                        </textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input
+                                        type="checkbox"
+                                        [(ngModel)]="editingCustomer.completed"
+                                />
+                                Mark as completed
+                            </label>
+                        </div>
+                        <div class="customer-actions">
+                            <button (click)="updateCustomer()" class="btn btn-primary">Save</button>
+                            <button (click)="cancelEdit()" class="btn btn-secondary">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-export interface Task {
+export interface Customer {
   id?: number;
   title: string;
   description?: string;
