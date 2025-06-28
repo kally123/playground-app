@@ -1,2 +1,0 @@
-# playground-app
-playground-app
