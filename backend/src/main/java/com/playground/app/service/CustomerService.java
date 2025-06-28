@@ -13,8 +13,8 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
     
-    public List<Customer> getAllCustomers() {
-        return customerRepository.findAll();
+    public List<Customer> findTodaysCustomers() {
+        return customerRepository.findTodaysCustomers();
     }
     
     public Optional<Customer> getCustomerById(Long id) {
