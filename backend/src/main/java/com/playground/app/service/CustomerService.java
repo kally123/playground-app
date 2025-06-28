@@ -41,6 +41,6 @@ public class CustomerService {
     }
     
     public List<Customer> getCustomersByStatus(boolean completed) {
-        return customerRepository.findByCompleted(completed);
+        return customerRepository.findByCompletedOrderByCreatedAtDesc(completed);
     }
 }

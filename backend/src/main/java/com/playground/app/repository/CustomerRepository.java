@@ -7,6 +7,6 @@ import java.util.List;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
-    List<Customer> findByCompleted(boolean completed);
+    List<Customer> findByCompletedOrderByCreatedAtDesc(boolean completed);
     List<Customer> findByNameContainingIgnoreCase(String title);
 }

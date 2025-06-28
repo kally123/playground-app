@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'PlayArea Management';
+  title = 'Play Area Management';
+  activeTab = 'customers'; // Default to customers tab
+
+  setActiveTab(tab: string): void {
+    this.activeTab = tab;
+  }
 }

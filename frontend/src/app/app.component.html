@@ -3,8 +3,35 @@
     <h1>{{title}}</h1>
     <p>Customer management application for Play area</p>
   </header>
-  
+
   <main>
-    <app-customer-list></app-customer-list>
+    <!-- Tab Navigation -->
+    <div class="tab-container">
+      <div class="tab-nav">
+        <button
+                class="tab-button"
+                [class.active]="activeTab === 'customers'"
+                (click)="setActiveTab('customers')">
+          Customers
+        </button>
+        <button
+                class="tab-button"
+                [class.active]="activeTab === 'menu'"
+                (click)="setActiveTab('menu')">
+          Menu
+        </button>
+      </div>
+
+      <!-- Tab Content -->
+      <div class="tab-content">
+        <div class="tab-pane" *ngIf="activeTab === 'customers'">
+          <app-customer-list></app-customer-list>
+        </div>
+
+        <div class="tab-pane" *ngIf="activeTab === 'menu'">
+          <app-menu-list></app-menu-list>
+        </div>
+      </div>
+    </div>
   </main>
 </div>
