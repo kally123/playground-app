@@ -25,9 +25,9 @@ public class Customer {
     private Long id;
 
     @Column(nullable = false)
-    private String title;
+    private String name;
 
-    private String description;
+    private String mobile;
 
     @Column(nullable = false)
     private boolean completed = false;
@@ -38,9 +38,9 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String title, String description) {
-        this.title = title;
-        this.description = description;
+    public Customer(String name, String mobile) {
+        this.name = name;
+        this.mobile = mobile;
     }
 
     @Override

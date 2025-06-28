@@ -1,7 +1,7 @@
 export interface Customer {
   id?: number;
-  title: string;
-  description?: string;
+  name: string;
+  mobile?: string;
   completed: boolean;
   createdAt?: string;
 }

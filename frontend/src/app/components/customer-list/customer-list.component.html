@@ -5,16 +5,16 @@
         <div class="form-group">
             <input
                     type="text"
-                    [(ngModel)]="newCustomer.title"
-                    placeholder="Customer title"
+                    [(ngModel)]="newCustomer.name"
+                    placeholder="Customer name"
                     class="form-control"
                     (keyup.enter)="createCustomer()"
             />
         </div>
         <div class="form-group">
           <textarea
-                  [(ngModel)]="newCustomer.description"
-                  placeholder="Customer description (optional)"
+                  [(ngModel)]="newCustomer.mobile"
+                  placeholder="Customer Mobile Number(optional)"
                   class="form-control"
                   rows="3">
           </textarea>
@@ -22,7 +22,7 @@
         <button
                 (click)="createCustomer()"
                 class="btn btn-primary"
-                [disabled]="!newCustomer.title.trim()"
+                [disabled]="!newCustomer.name.trim()"
         >
             Add Customer
         </button>
@@ -51,13 +51,13 @@
                 <div *ngIf="editingCustomer?.id !== customer.id" class="customer-view">
                     <div class="customer-content">
                         <div class="customer-header">
-                            <h3 [ngClass]="{'completed-text': customer.completed}">{{customer.title}}</h3>
+                            <h3 [ngClass]="{'completed-text': customer.completed}">{{customer.name}}</h3>
                             <span class="customer-status"
                                   [ngClass]="customer.completed ? 'status-completed' : 'status-pending'">
                 {{customer.completed ? 'Completed' : 'Pending'}}
               </span>
                         </div>
-                        <p *ngIf="customer.description" class="customer-description">{{customer.description}}</p>
+                        <p *ngIf="customer.mobile" class="customer-mobile">{{customer.mobile}}</p>
                         <small class="customer-date">Created: {{customer.createdAt | date:'short'}}</small>
                     </div>
 
@@ -80,16 +80,16 @@
                         <div class="form-group">
                             <input
                                     type="text"
-                                    [(ngModel)]="editingCustomer.title"
+                                    [(ngModel)]="editingCustomer.name"
                                     class="form-control"
-                                    placeholder="Customer title"
+                                    placeholder="Customer name"
                             />
                         </div>
                         <div class="form-group">
                         <textarea
-                                [(ngModel)]="editingCustomer.description"
+                                [(ngModel)]="editingCustomer.mobile"
                                 class="form-control"
-                                placeholder="Customer description"
+                                placeholder="Customer mobile"
                                 rows="3">
                         </textarea>
                         </div>

@@ -9,7 +9,7 @@ import { CustomerService } from '../../services/customer.service';
 })
 export class CustomerListComponent implements OnInit {
   customers: Customer[] = [];
-  newCustomer: Customer = { title: '', description: '', completed: false };
+  newCustomer: Customer = { name: '', mobile: '', completed: false };
   editingCustomer: Customer | null = null;
   loading = false;
 
@@ -34,11 +34,11 @@ export class CustomerListComponent implements OnInit {
   }
 
   createCustomer(): void {
-    if (this.newCustomer.title.trim()) {
+    if (this.newCustomer.name.trim()) {
       this.customerService.createCustomer(this.newCustomer).subscribe({
         next: (customer) => {
           this.customers.push(customer);
-          this.newCustomer = { title: '', description: '', completed: false };
+          this.newCustomer = { name: '', mobile: '', completed: false };
         },
         error: (error) => console.error('Error creating customer:', error)
       });
