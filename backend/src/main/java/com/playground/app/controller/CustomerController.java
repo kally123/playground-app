@@ -82,9 +82,9 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}/addmenu")
-    public ResponseEntity<CustomerMenu> addMenuToCustomer(@PathVariable Long id, @RequestBody MenuDto menuDto) {
+    public ResponseEntity<List<CustomerMenu>> addMenuToCustomer(@PathVariable Long id, @RequestBody List<MenuDto> menuDtos) {
         try {
-            CustomerMenu updatedCustomerMenu = customerService.addMenuToCustomer(id, menuDto);
+            List<CustomerMenu> updatedCustomerMenu = customerService.addMenuToCustomer(id, menuDtos);
             return ResponseEntity.ok(updatedCustomerMenu);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();

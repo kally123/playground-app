@@ -64,15 +64,20 @@ public class CustomerService {
         return customerRepository.findByCompletedOrderByCreatedAtDesc(completed);
     }
 
-    public CustomerMenu addMenuToCustomer(Long id, MenuDto menuDto) {
+    public List<CustomerMenu> addMenuToCustomer(Long id, List<MenuDto> menuDtos) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer not found with id: " + id));
-        CustomerMenu customerMenu = menuDto.toCustomerMenu(customer);
-        customerMenu.setCustomerId(customer.getId());
-        customerMenu.setSize(menuDto.getSize());
-        customerMenuRepository.save(customerMenu);
+        List<CustomerMenu> customerMenus = menuDtos.stream().map(menuDto -> {
+            CustomerMenu customerMenu = menuDto.toCustomerMenu(customer);
+            customerMenu.setCustomerId(customer.getId());
+            customerMenu.setSize(menuDto.getSize());
+            return customerMenu; // Return the CustomerMenu object
+        }).collect(Collectors.toList());
+        if (!customerMenus.isEmpty()) {
+            customerMenuRepository.saveAll(customerMenus);
+        }
 
-        return customerMenu;
+        return customerMenus;
     }
 
     public CustomerBill getCustomerBillById(Long id) {
