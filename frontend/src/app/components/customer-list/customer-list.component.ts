@@ -11,7 +11,7 @@ export class CustomerListComponent implements OnInit {
   customers: Customer[] = [];
   newCustomer: Customer = { name: '', mobile: '', completed: false };
   editingCustomer: Customer | null = null;
-  selectedCustomer: Customer | null = null;
+  selectedCustomer: any = null;
   addNewCustomer = false;
   loading = false;
 
@@ -176,14 +176,30 @@ export class CustomerListComponent implements OnInit {
     if (printWindow) {
       printWindow.document.write(printContents);
       printWindow.document.close();
-      printWindow.close();
       printWindow.print();
+      printWindow.close();
     }
   }
 
   addMenuToCustomer(customer: Customer): void {
     console.log('Adding menu to customer:', customer);
-    this.selectedCustomer = customer;
+    this.customerService.getCustomerBillById(customer.id!).subscribe({
+      next: (bill) => {
+        console.log('Customer Bill:', bill);
+        this.selectedCustomer = bill;
+      },
+      error: (error) => {
+        this.selectedCustomer = {
+          customerId: customer.id,
+          customerName: customer.name,
+          billItems: [],
+        };
+        console.error('Error fetching customer bill:', error);
+      },
+      complete: () => {
+        console.log('Completed fetching customer bill', this.selectedCustomer);
+      },
+    });
   }
 
   onCustomerMenuAction(event: any): void {
