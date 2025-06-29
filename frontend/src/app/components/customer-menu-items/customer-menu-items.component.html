@@ -1,0 +1,71 @@
+<div class="menu-container">
+  <!-- Add New Menu Form -->
+  <div class="add-menu-form">
+    <h2>Add Customer Menu ({{ customer?.name }})</h2>
+    <div class="form-group">
+      <select
+        [(ngModel)]="newCustomerMenu.menuId"
+        class="form-control"
+        placeholder="Menu Item"
+      >
+        <option value="0" disabled selected>Select Menu</option>
+        @for (menu of menus; track menu) {
+        <option [value]="menu.id">
+          {{ menu.name }} - {{ menu.size }} - {{ menu.price }}
+        </option>
+        }
+      </select>
+    </div>
+    <div class="form-group">
+      <input
+        type="number"
+        [(ngModel)]="newCustomerMenu.quantity"
+        min="1"
+        placeholder="Quantity"
+        class="form-control"
+      />
+    </div>
+    <button
+      (click)="createCustomerMenu()"
+      class="btn btn-primary"
+      [disabled]="newCustomerMenu.menuId == 0"
+    >
+      Add
+    </button>
+    <!-- Loading Indicator -->
+    <div *ngIf="loading" class="loading">
+      <p>Loading Menu...</p>
+    </div>
+
+    <!-- Menu List -->
+    <div class="Menus-section" *ngIf="!loading">
+      <h2>Customer Menus ({{ customerMenuItems.length }})</h2>
+
+      <div *ngIf="customerMenuItems.length === 0" class="no-menus">
+        <p>No Menu yet. Add your first Menu above!</p>
+      </div>
+
+      <div class="menu-list" *ngIf="customerMenuItems.length > 0">
+        <div class="menu-item">
+          @for (menu of customerMenuItems; track menu) {
+          <!-- View Items -->
+          <div class="menu-view">
+            <div class="menu-content">
+              <div class="menu-header">
+                <h3>
+                  {{ menu.name }}
+                </h3>
+                <small *ngIf="menu.size">{{ menu.size }}</small>
+                <p *ngIf="menu.price" class="menu-mobile">{{ menu.price }}</p>
+                <span class="menu-mobile">
+                  {{ menu.quantity }}
+                </span>
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

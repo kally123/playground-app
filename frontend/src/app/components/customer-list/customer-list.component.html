@@ -1,117 +1,164 @@
 <div class="customer-container">
-    <!-- Add New Customer Form -->
-    <div class="add-customer-form">
-        <h2>Add New Customer</h2>
-        <div class="form-group">
-            <input
-                    type="text"
-                    [(ngModel)]="newCustomer.name"
-                    placeholder="Customer name"
-                    class="form-control"
-                    (keyup.enter)="createCustomer()"
-            />
-        </div>
-        <div class="form-group">
-          <textarea
-                  [(ngModel)]="newCustomer.mobile"
-                  placeholder="Customer Mobile Number(optional)"
-                  class="form-control"
-                  rows="3">
-          </textarea>
-        </div>
-        <button
-                (click)="createCustomer()"
-                class="btn btn-primary"
-                [disabled]="!newCustomer.name.trim()"
-        >
-            Add Customer
-        </button>
+  <!-- Add New Customer Form -->
+  <div class="add-customer-form" *ngIf="addNewCustomer">
+    <h2>Add New Customer</h2>
+    <div class="form-group">
+      <input
+        type="text"
+        [(ngModel)]="newCustomer.name"
+        placeholder="Customer name"
+        class="form-control"
+        (keyup.enter)="createCustomer()"
+      />
+    </div>
+    <div class="form-group">
+      <textarea
+        [(ngModel)]="newCustomer.mobile"
+        placeholder="Customer Mobile Number(optional)"
+        class="form-control"
+        rows="3"
+      >
+      </textarea>
+    </div>
+    <button (click)="closeAddCustomer()" class="btn btn-secondary">
+      Close
+    </button>
+    <button
+      (click)="createCustomer()"
+      class="btn btn-primary"
+      [disabled]="!newCustomer.name.trim()"
+    >
+      Add Customer
+    </button>
+  </div>
+
+  <div *ngIf="selectedCustomer">
+    <app-customer-menu-items [customer]="selectedCustomer" />
+  </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="loading" class="loading">
+    <p>Loading Customer...</p>
+  </div>
+
+  <!-- Customer List -->
+  <div class="customers-section" *ngIf="!loading">
+    <div class="customers-header">
+      <h2>Customers ({{ customers.length }})</h2>
+      <button (click)="addNew()" class="btn btn-secondary">
+        Add New Customer
+      </button>
     </div>
 
-    <!-- Loading Indicator -->
-    <div *ngIf="loading" class="loading">
-        <p>Loading Customer...</p>
+    <div *ngIf="customers.length === 0" class="no-customers">
+      <p>No Customer yet. Create your first customer above!</p>
     </div>
 
-    <!-- Customer List -->
-    <div class="customers-section" *ngIf="!loading">
-        <h2>Customers ({{customers.length}})</h2>
-
-        <div *ngIf="customers.length === 0" class="no-customers">
-            <p>No Customer yet. Create your first customer above!</p>
-        </div>
-
-        <div class="customer-list" *ngIf="customers.length > 0">
-            <div
-                    *ngFor="let customer of customers"
-                    class="customer-item"
-                    [ngClass]="{'completed': customer.completed}"
-            >
-                <!-- View Mode -->
-                <div *ngIf="editingCustomer?.id !== customer.id" class="customer-view">
-                    <div class="customer-content">
-                        <div class="customer-header">
-                            <h3 [ngClass]="{'completed-text': customer.completed}">{{customer.name}}</h3>
-                            <span class="customer-status"
-                                  [ngClass]="customer.completed ? 'status-completed' : 'status-pending'">
-                                {{customer.completed ? 'Completed' : 'Pending'}}
-                              </span>
-                        </div>
-                        <p *ngIf="customer.mobile" class="customer-mobile">{{customer.mobile}}</p>
-                        <small class="customer-date">Created: {{customer.createdAt | date:'short'}}</small>
-                    </div>
-
-                    <div class="customer-actions">
-                        <button
-                                (click)="toggleComplete(customer)"
-                                class="btn"
-                                [ngClass]="customer.completed ? 'btn-warning' : 'btn-success'"
-                        >
-                            {{customer.completed ? 'Mark Pending' : 'Mark Complete'}}
-                        </button>
-                        <button (click)="startEdit(customer)" class="btn btn-secondary">Edit</button>
-                        <button (click)="deleteCustomer(customer.id!)" class="btn btn-danger">Delete</button>
-                       <!-- <button (click)="addMenuToCustomer(customer.id!, '{ menuId: 1, quantity: 2 }')" class="btn btn-secondary">Add Menu</button> -->
-
-                        <button (click)="getCustomerBillById(customer.id!)" class="btn btn-secondary">Generate Bill</button>
-                    </div>
-                </div>
-
-                <!-- Edit Mode -->
-                <div *ngIf="editingCustomer">
-                    <div *ngIf="editingCustomer?.id === customer.id" class="customer-edit">
-                        <div class="form-group">
-                            <input
-                                    type="text"
-                                    [(ngModel)]="editingCustomer.name"
-                                    class="form-control"
-                                    placeholder="Customer name"
-                            />
-                        </div>
-                        <div class="form-group">
-                        <textarea
-                                [(ngModel)]="editingCustomer.mobile"
-                                class="form-control"
-                                placeholder="Customer mobile"
-                                rows="3">
-                        </textarea>
-                        </div>
-                        <div class="form-group">
-                            <label class="checkbox-label">
-                                <input
-                                        type="checkbox"
-                                        [(ngModel)]="editingCustomer.completed"
-                                />
-                                Mark as completed
-                            </label>
-                        </div>
-                        <div class="customer-actions">
-                            <button (click)="updateCustomer()" class="btn btn-primary">Save</button>
-                            <button (click)="cancelEdit()" class="btn btn-secondary">Cancel</button>
-                        </div>
-                    </div>
-                </div>
+    <div class="customer-list" *ngIf="customers.length > 0">
+      <div
+        *ngFor="let customer of customers"
+        class="customer-item"
+        [ngClass]="{ completed: customer.completed }"
+      >
+        <!-- View Mode -->
+        <div *ngIf="editingCustomer?.id !== customer.id" class="customer-view">
+          <div class="customer-content">
+            <div class="customer-header">
+              <h3 [ngClass]="{ 'completed-text': customer.completed }">
+                {{ customer.name }}
+              </h3>
+              <span
+                class="customer-status"
+                [ngClass]="
+                  customer.completed ? 'status-completed' : 'status-pending'
+                "
+              >
+                {{ customer.completed ? 'Completed' : 'Pending' }}
+              </span>
             </div>
+            <p *ngIf="customer.mobile" class="customer-mobile">
+              {{ customer.mobile }}
+            </p>
+            <small class="customer-date"
+              >Created: {{ customer.createdAt | date : 'short' }}</small
+            >
+          </div>
+
+          <div class="customer-actions">
+            <button
+              (click)="toggleComplete(customer)"
+              class="btn"
+              [ngClass]="customer.completed ? 'btn-warning' : 'btn-success'"
+            >
+              {{ customer.completed ? 'Mark Pending' : 'Mark Complete' }}
+            </button>
+            <button (click)="startEdit(customer)" class="btn btn-secondary">
+              Edit
+            </button>
+            <button
+              (click)="deleteCustomer(customer.id!)"
+              class="btn btn-danger"
+            >
+              Delete
+            </button>
+            <button
+              (click)="addMenuToCustomer(customer)"
+              class="btn btn-secondary"
+            >
+              Add Menu
+            </button>
+            <button
+              (click)="getCustomerBillById(customer.id!)"
+              class="btn btn-secondary"
+            >
+              Generate Bill
+            </button>
+          </div>
         </div>
+
+        <!-- Edit Mode -->
+        <div *ngIf="editingCustomer">
+          <div
+            *ngIf="editingCustomer?.id === customer.id"
+            class="customer-edit"
+          >
+            <div class="form-group">
+              <input
+                type="text"
+                [(ngModel)]="editingCustomer.name"
+                class="form-control"
+                placeholder="Customer name"
+              />
+            </div>
+            <div class="form-group">
+              <textarea
+                [(ngModel)]="editingCustomer.mobile"
+                class="form-control"
+                placeholder="Customer mobile"
+                rows="3"
+              >
+              </textarea>
+            </div>
+            <div class="form-group">
+              <label class="checkbox-label">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="editingCustomer.completed"
+                />
+                Mark as completed
+              </label>
+            </div>
+            <div class="customer-actions">
+              <button (click)="updateCustomer()" class="btn btn-primary">
+                Save
+              </button>
+              <button (click)="cancelEdit()" class="btn btn-secondary">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

@@ -6,19 +6,17 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { CustomerListComponent } from './components/customer-list/customer-list.component';
 import { MenuListComponent } from './components/menu-list/menu-list.component';
+import { CustomerMenuItemsComponent } from './components/customer-menu-items/customer-menu-items.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CustomerListComponent,
-    MenuListComponent
+    MenuListComponent,
+    CustomerMenuItemsComponent,
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule
-  ],
+  imports: [BrowserModule, HttpClientModule, FormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
