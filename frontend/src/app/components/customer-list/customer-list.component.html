@@ -28,7 +28,7 @@
                 class="btn btn-primary"
                 [disabled]="!newCustomer.name.trim()"
         >
-            Add Customer
+            <img src="assets/icons/person-add-sharp.svg" alt="Add Customer" style="width:20px; height:20px; vertical-align:middle;" />
         </button>
     </div>
 
@@ -48,8 +48,8 @@
     <div class="customers-section" *ngIf="!loading">
         <div class="customers-header">
             <h2>Customers ({{ customers.length }})</h2>
-            <button (click)="addNew()" class="btn btn-secondary">
-                Add New Customer
+            <button (click)="addNew()">
+                <img src="assets/icons/person-add-sharp.svg" alt="Add Customer" style="width:20px; height:20px; vertical-align:middle;" />
             </button>
         </div>
 
@@ -100,28 +100,22 @@
                                 class="btn"
                                 [ngClass]="customer.completed ? 'btn-warning' : 'btn-success'"
                         >
-                            {{ customer.completed ? 'Mark Playing' : 'Mark Complete' }}
+                            <img *ngIf="!customer.completed" src="assets/icons/done_outline_24dp.svg" alt="Mark Completed" style="width:20px; height:20px; vertical-align:middle;" />
+                            <img *ngIf="customer.completed" src="assets/icons/play_1.svg" alt="Mark Completed" style="width:20px; height:20px; vertical-align:middle;" />
                         </button>
-                        <button (click)="startEdit(customer)" class="btn btn-secondary">
-                            Edit
+                        <button (click)="startEdit(customer)">
+                            <img src="assets/icons/edit.svg" alt="Edit" style="width:20px; height:20px; vertical-align:middle;" />
                         </button>
-                        <button
-                                (click)="deleteCustomer(customer.id!)"
-                                class="btn btn-danger"
-                        >
-                            Delete
+                        <button (click)="deleteCustomer(customer.id!)">
+                            <img src="assets/icons/trash-sharp.svg" alt="Delete" style="width:20px; height:20px; vertical-align:middle;" />
                         </button>
                         <button
-                                (click)="addMenuToCustomer(customer)"
-                                class="btn btn-secondary"
-                        >
-                            Add Menu
+                                (click)="addMenuToCustomer(customer)">
+                            <img src="assets/icons/menu_book_2_24dp.svg" alt="Invoice" style="width:20px; height:20px; vertical-align:middle;" />
                         </button>
                         <button
-                                (click)="getCustomerBillById(customer.id!)"
-                                class="btn btn-secondary"
-                        >
-                            Generate Bill
+                                (click)="getCustomerBillById(customer.id!)">
+                            <img src="assets/icons/receipt_long_24dp.svg" alt="Invoice" style="width:20px; height:20px; vertical-align:middle;" />
                         </button>
                     </div>
                 </div>

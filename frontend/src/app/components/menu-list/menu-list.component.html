@@ -54,7 +54,7 @@
       class="btn btn-primary"
       [disabled]="!newMenu.name.trim()"
     >
-      Add Menu
+      <img src="assets/icons/cart-plus.svg" alt="Add Menu" style="width:20px; height:20px; vertical-align:middle;" />
     </button>
   </div>
 
@@ -95,18 +95,15 @@
           </div>
 
           <div class="menu-actions">
-            <button
-              (click)="toggleActive(menu)"
-              class="btn"
-              [ngClass]="menu.status ? 'btn-success' : 'btn-warning'"
-            >
-              {{ menu.status ? 'Mark InActive' : 'Mark Active' }}
+            <button (click)="toggleActive(menu)" class="btn">
+              <img *ngIf="menu.status" src="assets/icons/toggle-right.svg" alt="Active" style="width:30px; height:30px; vertical-align:middle;" />
+              <img *ngIf="!menu.status" src="assets/icons/toggle-left.svg" alt="InActive" style="width:30px; height:30px; vertical-align:middle;" />
             </button>
-            <button (click)="startEdit(menu)" class="btn btn-secondary">
-              Edit
+            <button (click)="startEdit(menu)">
+              <img src="assets/icons/edit.svg" alt="Delete" style="width:30px; height:30px; vertical-align:middle;" />
             </button>
-            <button (click)="deleteMenu(menu.id!)" class="btn btn-danger">
-              Delete
+            <button (click)="deleteMenu(menu.id!)">
+              <img src="assets/icons/trash-sharp.svg" alt="Delete" style="width:20px; height:20px; vertical-align:middle;" />
             </button>
           </div>
         </div>
