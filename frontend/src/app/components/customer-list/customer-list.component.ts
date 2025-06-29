@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Customer } from '../../models/customer.model';
+import { MenuDto } from '../../models/menudto.model';
+import { CustomerMenu } from '../../models/customermenu.model';
 import { CustomerService } from '../../services/customer.service';
 
 @Component({
@@ -93,4 +95,25 @@ export class CustomerListComponent implements OnInit {
       });
     }
   }
+
+  getCustomerBillById(customerId: number): void {
+        this.customerService.getCustomerBillById(customerId).subscribe({
+        next: (bill) => {
+            console.log('Customer Bill:', bill);
+            // You can handle the bill data as needed, e.g., display it in a modal
+        },
+        error: (error) => console.error('Error fetching customer bill:', error)
+        });
+    }
+
+    addMenuToCustomer(customerId: number, menuDto: MenuDto): void {
+        this.customerService.addMenuToCustomer(customerId, menuDto).subscribe({
+            next: (response) => {
+                console.log('Menu added to customer:', response);
+                // Optionally refresh customer data or handle UI updates here
+            },
+            error: (error) => console.error('Error adding menu to customer:', error)
+        });
+    }
+
 }

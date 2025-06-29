@@ -11,6 +11,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     List<Customer> findByCompletedOrderByCreatedAtDesc(boolean completed);
     List<Customer> findByNameContainingIgnoreCase(String title);
 
-    @Query("SELECT c FROM Customer c WHERE FUNCTION('DATE', c.createdAt) = CURRENT_DATE ORDER BY c.createdAt DESC")
+    @Query("SELECT c FROM Customer c WHERE CAST(c.createdAt AS date) = CURRENT_DATE ORDER BY c.createdAt DESC")
     List<Customer> findTodaysCustomers();
 }

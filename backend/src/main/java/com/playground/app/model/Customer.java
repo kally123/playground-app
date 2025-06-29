@@ -35,6 +35,9 @@ public class Customer {
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @Column(name = "exitAt")
+    private LocalDateTime exitAt;
+
     public Customer() {
     }
 

@@ -54,8 +54,8 @@
                             <h3 [ngClass]="{'completed-text': customer.completed}">{{customer.name}}</h3>
                             <span class="customer-status"
                                   [ngClass]="customer.completed ? 'status-completed' : 'status-pending'">
-                {{customer.completed ? 'Completed' : 'Pending'}}
-              </span>
+                                {{customer.completed ? 'Completed' : 'Pending'}}
+                              </span>
                         </div>
                         <p *ngIf="customer.mobile" class="customer-mobile">{{customer.mobile}}</p>
                         <small class="customer-date">Created: {{customer.createdAt | date:'short'}}</small>
@@ -71,6 +71,9 @@
                         </button>
                         <button (click)="startEdit(customer)" class="btn btn-secondary">Edit</button>
                         <button (click)="deleteCustomer(customer.id!)" class="btn btn-danger">Delete</button>
+                       <!-- <button (click)="addMenuToCustomer(customer.id!, '{ menuId: 1, quantity: 2 }')" class="btn btn-secondary">Add Menu</button> -->
+
+                        <button (click)="getCustomerBillById(customer.id!)" class="btn btn-secondary">Generate Bill</button>
                     </div>
                 </div>
 
