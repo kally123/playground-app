@@ -38,7 +38,7 @@ public class MenuController {
 
     @GetMapping("/all")
     public Page<Menu> findAll(@RequestParam(defaultValue = "0") int page,
-                                  @RequestParam(defaultValue = "10") int size) {
+                              @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         return menuService.findAll(pageable);
     }
@@ -75,13 +75,14 @@ public class MenuController {
     public List<Menu> getMenusByStatus(@PathVariable boolean status) {
         return menuService.getMenuByStatus(status);
     }
-    @PostMapping("/import")
-        public ResponseEntity<String> importMenusFromFile(@RequestParam("file") MultipartFile file) {
-            try {
-                menuService.importMenus(file);
-                return ResponseEntity.ok("Menus imported successfully.");
-            } catch (Exception e) {
-                return ResponseEntity.badRequest().body("Failed to import menus: " + e.getMessage());
-            }
+
+    @PostMapping(path = "/import", consumes = "multipart/form-data", produces = "application/json")
+    public ResponseEntity<String> importMenusFromFile(@RequestParam("file") MultipartFile file) {
+        try {
+            menuService.importMenus(file);
+            return ResponseEntity.ok("Menus imported successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Failed to import menus: " + e.getMessage());
         }
+    }
 }
