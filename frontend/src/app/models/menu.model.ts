@@ -5,4 +5,5 @@ export interface Menu {
   status: boolean;
   createdAt?: string;
   size: string;
+  category: string;
 }

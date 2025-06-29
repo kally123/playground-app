@@ -33,6 +33,9 @@ public class Menu {
     @Enumerated(EnumType.STRING)
     private MenuSize size;
 
+    @Enumerated(EnumType.STRING)
+    private MenuCategory category;
+
     @Column(nullable = false)
     private boolean status = false;
 

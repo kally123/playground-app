@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -61,4 +63,13 @@ public class MenuController {
     public List<Menu> getMenusByStatus(@PathVariable boolean status) {
         return menuService.getMenuByStatus(status);
     }
+    @PostMapping("/import")
+        public ResponseEntity<String> importMenusFromFile(@RequestParam("file") MultipartFile file) {
+            try {
+                menuService.importMenus(file);
+                return ResponseEntity.ok("Menus imported successfully.");
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body("Failed to import menus: " + e.getMessage());
+            }
+        }
 }
