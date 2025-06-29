@@ -216,8 +216,13 @@
 }
 
 .customer-date {
-  color: #999;
-  font-size: 12px;
+  color: #11db3f;
+  font-size: 18px;
+}
+
+.customer-date-exited {
+  color: #bb0606;
+  font-size: 18px;
 }
 
 .customer-actions {

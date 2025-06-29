@@ -4,4 +4,5 @@ export interface Customer {
   mobile?: string;
   completed: boolean;
   createdAt?: string;
+  exitAt?: string;
 }

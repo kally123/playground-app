@@ -176,7 +176,6 @@ export class CustomerListComponent implements OnInit {
     if (printWindow) {
       printWindow.document.write(printContents);
       printWindow.document.close();
-      printWindow.close();
       printWindow.print();
     }
   }
