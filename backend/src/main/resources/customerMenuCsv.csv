@@ -1,0 +1,76 @@
+﻿Item Name,Price/Small (Rs.),Medium (Rs.),Large/Double (Rs.),Category
+Virgin Mojito,50,,,Mojito
+Mint Mojito,60,,,Mojito
+Blue Karaoke Mojito,60,,,Mojito
+Blue Berry Mojito,60,,,Mojito
+Water Melon Mojito,60,,,Mojito
+Pine Apple Mojito,60,,,Mojito
+Peach Mojito,60,,,Mojito
+Green Apple Mojito,60,,,Mojito
+French Fries,70,100,120,Veg
+Peri Peri French Fries,80,110,130,Veg
+Veg Momos 6 PCS,100,,,Veg
+Chocolate Momos 5 PCS,100,,,Veg
+Corn Cheese Momos 6 PCS,100,,,Veg
+Paneer Momos 6 PCS,100,,,Veg
+Veg Samosa 5 PCS,100,,,Veg
+Paneer Samosa 4 PCS,100,,,Veg
+Corn Samosa 6 PCS,100,,,Veg
+Veg Nuggets 6 PCS,100,,,Veg
+Corn Cheese Nuggets 6 PCS,100,,,Veg
+Paneer Popcorn 12 PCS,100,,,Veg
+Harabara Kebab 4 PCS,100,,,Veg
+Cheese Balls 10 PCS,100,,,Veg
+Veg Money Bags 3 PCS,100,,,Veg
+Golden Veg Pie 3 PCS,100,,,Veg
+Noodles Samosa 5 PCS,100,,,Veg
+Potato Tots 10 PCS,100,,,Veg
+Paneer Roll 3 PCS,100,,,Veg
+Veg Roll 4 PCS,100,,,Veg
+Cutlet 5 PCS,100,,,Veg
+Veg Lollipop 4 PCS,100,,,Veg
+Smiley 4 PCS,100,,,Veg
+Veg Sandwich,70,,,Sandwich
+Cheese Veg Sandwich,85,,,Sandwich
+Corn Sandwich,80,,,Sandwich
+Paneer Sandwich,100,,,Sandwich
+Chicken Sandwich,100,,,Sandwich
+Tea,20,,,HotBeverage
+Coffee,25,,,HotBeverage
+Milk,20,,,HotBeverage
+Boost,30,,,HotBeverage
+Horlicks,30,,,HotBeverage
+Lemon Tea,20,,,HotBeverage
+Green Tea,25,,,HotBeverage
+Black Coffee,15,,,HotBeverage
+Chocolate Coffee,50,,,HotBeverage
+Hot Chocolate,85,,,HotBeverage
+Cold Coffee,70,,,HotBeverage
+Cold Coffee with Icecream,85,,,HotBeverage
+Rosemilk,60,,,Juice
+Badam Milk,60,,,Juice
+Orange Juice,80,,,Juice
+Watermelon Juice,50,,,Juice
+Mosambi Juice,60,,,Juice
+Lime Juice,40,,,Juice
+Grape Juice,70,,,Juice
+Apple Juice,80,,,Juice
+Pineapple Juice,70,,,Juice
+Muskmelon Juice,60,,,Juice
+Vanilla Milkshake,80,,,Milkshake
+Chocolate Milkshake,80,,,Milkshake
+Strawberry Milkshake,80,,,Milkshake
+Mango Milkshake,80,,,Milkshake
+Butterscotch Milkshake,80,,,Milkshake
+Black Currant Milkshake,90,,,Milkshake
+Fig and Honey Milkshake,90,,,Milkshake
+Avacado Milkshake,90,,,Milkshake
+Oreo Milkshake,80,,,Milkshake
+Vanilla Scoope,40,,70,IceCream
+Chocolate Scoope,40,,70,IceCream
+Pista Scoope,40,,70,IceCream
+Strawberry Scoope,40,,70,IceCream
+Butter Scotch,40,,70,IceCream
+Mango Scoope,40,,70,IceCream
+Fig & Honey,40,,70,IceCream
+Black Currant,40,,80,IceCream
