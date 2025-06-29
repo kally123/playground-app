@@ -10,6 +10,8 @@ import com.playground.app.repository.CustomerMenuRepository;
 import com.playground.app.repository.CustomerRepository;
 import com.playground.app.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,6 +27,10 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMenuRepository customerMenuRepository;
     private final MenuRepository menuRepository;
+
+    public Page<Customer> findAll(Pageable pageable) {
+        return customerRepository.findAll(pageable);
+    }
 
     public List<Customer> findTodaysCustomers() {
         return customerRepository.findTodaysCustomers();
@@ -94,4 +100,5 @@ public class CustomerService {
         customer.setExitAt(LocalDateTime.now());
         return customerRepository.save(customer);
     }
+
 }

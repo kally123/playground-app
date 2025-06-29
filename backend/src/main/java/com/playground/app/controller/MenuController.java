@@ -1,8 +1,12 @@
 package com.playground.app.controller;
 
+import com.playground.app.model.Customer;
 import com.playground.app.model.Menu;
 import com.playground.app.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,6 +33,14 @@ public class MenuController {
     @GetMapping
     public List<Menu> getAllMenus() {
         return menuService.getAllMenus();
+    }
+
+
+    @GetMapping("/all")
+    public Page<Menu> findAll(@RequestParam(defaultValue = "0") int page,
+                                  @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return menuService.findAll(pageable);
     }
 
     @GetMapping("/{id}")

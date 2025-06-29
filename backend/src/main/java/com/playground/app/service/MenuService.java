@@ -1,9 +1,12 @@
 package com.playground.app.service;
 
+import com.playground.app.model.Customer;
 import com.playground.app.model.Menu;
 import com.playground.app.model.MenuCategory;
 import com.playground.app.repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +26,10 @@ public class MenuService {
 
     public List<Menu> getAllMenus() {
         return menuRepository.findAll();
+    }
+
+    public Page<Menu> findAll(Pageable pageable) {
+        return menuRepository.findAll(pageable);
     }
 
     public Optional<Menu> getMenuById(Long id) {
@@ -88,4 +95,5 @@ public class MenuService {
             throw new RuntimeException("Invalid price format: " + parts[1]);
         }
     }
+
 }
