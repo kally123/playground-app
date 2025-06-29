@@ -1,7 +1,9 @@
 <div class="container">
   <header class="header">
-    <h1>{{title}}</h1>
-    <p>Customer management application for Play area</p>
+    <h1>{{ title }}</h1>
+    <p style="color: aliceblue">
+      Customer management application for Play area
+    </p>
   </header>
 
   <main>
@@ -9,15 +11,17 @@
     <div class="tab-container">
       <div class="tab-nav">
         <button
-                class="tab-button"
-                [class.active]="activeTab === 'customers'"
-                (click)="setActiveTab('customers')">
+          class="tab-button"
+          [class.active]="activeTab === 'customers'"
+          (click)="setActiveTab('customers')"
+        >
           Customers
         </button>
         <button
-                class="tab-button"
-                [class.active]="activeTab === 'menu'"
-                (click)="setActiveTab('menu')">
+          class="tab-button"
+          [class.active]="activeTab === 'menu'"
+          (click)="setActiveTab('menu')"
+        >
           Menu
         </button>
       </div>
