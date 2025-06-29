@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Customer } from 'src/app/models/customer.model';
 import { Menu } from 'src/app/models/menu.model';
 import { MenuDto } from 'src/app/models/menudto.model';
@@ -12,6 +12,7 @@ import { MenuService } from 'src/app/services/menu.service';
 })
 export class CustomerMenuItemsComponent implements OnInit {
   @Input() customer: Customer | null = null;
+  @Output() onButtonAction: EventEmitter<string> = new EventEmitter<string>();
   menus: Menu[] = [];
   newCustomerMenu: MenuDto = { menuId: 0, quantity: 0 };
   customerMenuItems: any[] = [];
@@ -42,19 +43,45 @@ export class CustomerMenuItemsComponent implements OnInit {
 
   createCustomerMenu(): void {
     if (this.newCustomerMenu.menuId) {
+      let _menu = this.menus.find(
+        (menu) => menu.id == this.newCustomerMenu.menuId,
+      );
+      this.customerMenuItems.push({
+        ..._menu,
+        quantity: this.newCustomerMenu.quantity,
+      });
+      console.log('cus menu ', this.customerMenuItems);
+
+      this.newCustomerMenu = { menuId: 0, quantity: 0 };
+    }
+  }
+
+  deleteItem(_menuId: number): void {
+    this.customerMenuItems = this.customerMenuItems.filter(
+      (menu) => menu.id !== _menuId,
+    );
+  }
+
+  submitCustomerMenu(): void {
+    if (this.customerMenuItems.length > 0) {
+      let orderItems = this.customerMenuItems.map((item) => ({
+        menuId: item.id,
+        quantity: item.quantity,
+      }));
       this.customerService
-        .addMenuToCustomer(this.customer?.id || 0, this.newCustomerMenu)
+        .addMenuToCustomer(this.customer?.id || 0, orderItems)
         .subscribe({
           next: (data) => {
-            let _menu = this.menus.find((menu) => menu.id == data.menuId);
-            this.customerMenuItems.push({ ..._menu, quantity: data.quantity });
-            console.log('cus menu ', this.customerMenuItems);
-
-            this.newCustomerMenu = { menuId: 0, quantity: 0 };
+            console.log('Customer Menu Items added successfully:', data);
+            this.onButtonAction.emit('success');
           },
           error: (error) =>
             console.error('Error creating customer Menu Item :', error),
         });
     }
+  }
+
+  closeCustomerMenu(): void {
+    this.onButtonAction.emit('close');
   }
 }

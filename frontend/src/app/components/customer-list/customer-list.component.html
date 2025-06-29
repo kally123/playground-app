@@ -33,7 +33,10 @@
   </div>
 
   <div *ngIf="selectedCustomer">
-    <app-customer-menu-items [customer]="selectedCustomer" />
+    <app-customer-menu-items
+      [customer]="selectedCustomer"
+      (onButtonAction)="onCustomerMenuAction($event)"
+    />
   </div>
 
   <!-- Loading Indicator -->

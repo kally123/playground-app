@@ -184,13 +184,14 @@ export class CustomerListComponent implements OnInit {
   addMenuToCustomer(customer: Customer): void {
     console.log('Adding menu to customer:', customer);
     this.selectedCustomer = customer;
+  }
 
-    // this.customerService.addMenuToCustomer(customerId, menuDto).subscribe({
-    //     next: (response) => {
-    //         console.log('Menu added to customer:', response);
-    //         // Optionally refresh customer data or handle UI updates here
-    //     },
-    //     error: (error) => console.error('Error adding menu to customer:', error)
-    // });
+  onCustomerMenuAction(event: any): void {
+    console.log('Customer Menu Action:', event);
+    if (event === 'close') {
+      this.selectedCustomer = null;
+    } else {
+      this.selectedCustomer = null;
+    }
   }
 }

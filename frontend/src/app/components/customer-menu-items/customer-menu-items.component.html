@@ -47,24 +47,43 @@
 
       <div class="menu-list" *ngIf="customerMenuItems.length > 0">
         <div class="menu-item">
-          @for (menu of customerMenuItems; track menu) {
-          <!-- View Items -->
-          <div class="menu-view">
-            <div class="menu-content">
-              <div class="menu-header">
-                <h3>
-                  {{ menu.name }}
-                </h3>
-                <small *ngIf="menu.size">{{ menu.size }}</small>
-                <p *ngIf="menu.price" class="menu-mobile">{{ menu.price }}</p>
-                <span class="menu-mobile">
-                  {{ menu.quantity }}
-                </span>
-              </div>
-            </div>
-          </div>
-          }
+          <table style="width: 100%">
+            <thead>
+              <tr>
+                <th>Menu Name</th>
+                <th class="right-cell">Price</th>
+                <th class="right-cell">Quantity</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (menu of customerMenuItems; track menu) {
+              <tr>
+                <td>{{ menu.name }}</td>
+                <td class="right-cell">{{ menu.price }}</td>
+                <td class="right-cell">{{ menu.quantity }}</td>
+                <td class="right-cell">
+                  <button (click)="deleteItem(menu.id)" class="btn btn-danger">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
         </div>
+      </div>
+      <div class="float-actions">
+        <button (click)="closeCustomerMenu()" class="btn btn-secondary">
+          Close
+        </button>
+        <button
+          (click)="submitCustomerMenu()"
+          class="btn btn-primary"
+          [disabled]="customerMenuItems.length === 0"
+        >
+          Submit
+        </button>
       </div>
     </div>
   </div>
