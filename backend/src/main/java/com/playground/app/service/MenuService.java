@@ -42,14 +42,16 @@ public class MenuService {
     }
 
     public Menu updateMenu(Long id, Menu menuDetails) {
-        Menu customer = menuRepository.findById(id)
+        Menu menu = menuRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer not found with id: " + id));
 
-        customer.setName(menuDetails.getName());
-        customer.setStatus(menuDetails.isStatus());
-        customer.setPrice(menuDetails.getPrice());
+        menu.setName(menuDetails.getName());
+        menu.setStatus(menuDetails.isStatus());
+        menu.setPrice(menuDetails.getPrice());
+        menu.setSize(menuDetails.getSize());
+        menu.setCategory(menuDetails.getCategory());
 
-        return menuRepository.save(customer);
+        return menuRepository.save(menu);
     }
 
     public void deleteMenu(Long id) {

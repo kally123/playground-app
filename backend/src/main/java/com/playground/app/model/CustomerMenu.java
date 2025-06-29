@@ -32,7 +32,6 @@ public class CustomerMenu {
 
     private int quantity;
 
-    @Column(nullable = true)
     @Enumerated(EnumType.STRING)
     private MenuSize size;
 

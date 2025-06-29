@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
+
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
@@ -67,11 +69,17 @@ public class CustomerService {
     public List<CustomerMenu> addMenuToCustomer(Long id, List<MenuDto> menuDtos) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer not found with id: " + id));
+        Map<Long, MenuDto> menuMap = menuDtos.stream()
+                .collect(Collectors.toMap(MenuDto::getMenuId, menuDto -> menuDto));
+        List<CustomerMenu> existingCustomerMenus = customerMenuRepository.findByCustomerId(customer.getId());
+        Map<Long, CustomerMenu> existingCustomerMenusMap = existingCustomerMenus.stream()
+                .collect(Collectors.toMap(CustomerMenu::getMenuId, customerMenu -> customerMenu));
         List<CustomerMenu> customerMenus = menuDtos.stream().map(menuDto -> {
-            CustomerMenu customerMenu = menuDto.toCustomerMenu(customer);
+            CustomerMenu customerMenu = isNotEmpty(existingCustomerMenusMap.get(menuDto.getMenuId())) ? existingCustomerMenusMap.get(menuDto.getMenuId()) : menuDto.toCustomerMenu(customer);
             customerMenu.setCustomerId(customer.getId());
             customerMenu.setSize(menuDto.getSize());
-            return customerMenu; // Return the CustomerMenu object
+            customerMenu.setQuantity(menuDto.getQuantity());
+            return customerMenu;
         }).collect(Collectors.toList());
         if (!customerMenus.isEmpty()) {
             customerMenuRepository.saveAll(customerMenus);
@@ -91,7 +99,7 @@ public class CustomerService {
                 .mapToDouble(menu -> menu.getQuantity() * menuMap.get(menu.getMenuId()).getPrice())
                 .sum();
         List<MenuBillDto> billItems = customerMenus.stream()
-                .map(menu -> new MenuBillDto(menu.getId(), menuMap.get(menu.getMenuId()).getName(),
+                .map(menu -> new MenuBillDto(menu.getId(), menu.getMenuId(), menuMap.get(menu.getMenuId()).getName(),
                         menuMap.get(menu.getMenuId()).getPrice(),
                         menu.getQuantity(), menu.getSize())).toList();
         return new CustomerBill(customer.getId(), customer.getName(), totalAmount, customer.getCreatedAt(), customer.getExitAt(), billItems);

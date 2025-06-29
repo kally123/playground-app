@@ -46,6 +46,7 @@
         <option value="Juice">Juice</option>
         <option value="Milkshake">Milkshake</option>
         <option value="IceCream">IceCream</option>
+        <option value="Other">Other</option>
       </select>
     </div>
     <button
@@ -80,9 +81,8 @@
         <div *ngIf="editingMenu?.id !== menu.id" class="menu-view">
           <div class="menu-content">
             <div class="menu-header">
-              <h3 [ngClass]="{ 'status-text': !menu.status }">
-                {{ menu.name }}
-              </h3>
+              <h3 [ngClass]="{ 'status-text': !menu.status }">{{ menu.name }} </h3>
+              <h2 *ngIf="menu.price" class="menu-mobile">{{ menu.price }}/- </h2>
               <span
                 class="menu-status"
                 [ngClass]="menu.status ? 'status-active' : 'status-inactive'"
@@ -91,10 +91,7 @@
               </span>
             </div>
             <small *ngIf="menu.size">{{ menu.size }}</small>
-            <p *ngIf="menu.price" class="menu-mobile">{{ menu.price }}</p>
-            <small class="menu-date"
-              >Created: {{ menu.createdAt | date : 'short' }}</small
-            >
+            <!--<small class="menu-date">Created: {{ menu.createdAt | date : 'short' }}</small> -->
           </div>
 
           <div class="menu-actions">
@@ -133,6 +130,23 @@
                 placeholder="Menu Price"
                 class="form-control"
               />
+            </div>
+            <div class="form-group">
+              <select
+                      [(ngModel)]="editingMenu.category"
+                      class="form-control"
+                      placeholder="Menu Category"
+              >
+                <option value="" disabled selected>Select Category</option>
+                <option value="Veg">Veg</option>
+                <option value="Mojito">Mojito</option>
+                <option value="Sandwich">Sandwich</option>
+                <option value="HotBeverage">HotBeverage</option>
+                <option value="Juice">Juice</option>
+                <option value="Milkshake">Milkshake</option>
+                <option value="IceCream">IceCream</option>
+                <option value="Other">Other</option>
+              </select>
             </div>
             <div class="form-group">
               <label class="checkbox-label">

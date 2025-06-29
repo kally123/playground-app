@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MenuBillDto extends MenuDto {
+public class MenuBillDto {
+    private Long customerMenuId;
     private Long menuId;
     private String menuName;
     private int price;

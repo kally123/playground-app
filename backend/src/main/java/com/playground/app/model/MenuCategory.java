@@ -8,4 +8,5 @@ public enum MenuCategory {
     Juice,
     Milkshake,
     IceCream,
+    Other,
 }
