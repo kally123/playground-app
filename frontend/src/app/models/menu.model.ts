@@ -4,4 +4,5 @@ export interface Menu {
   price: number;
   status: boolean;
   createdAt?: string;
+  size: string;
 }

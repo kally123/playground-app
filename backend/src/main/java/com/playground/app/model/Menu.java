@@ -2,6 +2,8 @@ package com.playground.app.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,6 +29,9 @@ public class Menu {
     private String name;
 
     private int price;
+
+    @Enumerated(EnumType.STRING)
+    private MenuSize size;
 
     @Column(nullable = false)
     private boolean status = false;

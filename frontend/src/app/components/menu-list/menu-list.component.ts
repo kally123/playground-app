@@ -9,7 +9,7 @@ import { MenuService } from '../../services/menu.service';
 })
 export class MenuListComponent implements OnInit {
   menus: Menu[] = [];
-  newMenu: Menu = { name: '', price: 0, status: false };
+  newMenu: Menu = { name: '', price: 0, status: false , size: '' };
   editingMenu: Menu | null = null;
   loading = false;
 
@@ -38,7 +38,7 @@ export class MenuListComponent implements OnInit {
       this.menuService.createMenu(this.newMenu).subscribe({
         next: (menu) => {
           this.menus.push(menu);
-          this.newMenu = { name: '', price: 0, status: false };
+          this.newMenu = { name: '', price: 0, status: false , size: ''};
         },
         error: (error) => console.error('Error creating Menu Item :', error)
       });

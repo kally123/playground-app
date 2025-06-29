@@ -63,6 +63,7 @@ public class CustomerService {
                 .orElseThrow(() -> new RuntimeException("Customer not found with id: " + id));
         CustomerMenu customerMenu = menuDto.toCustomerMenu(customer);
         customerMenu.setCustomerId(customer.getId());
+        customerMenu.setSize(menuDto.getSize());
         customerMenuRepository.save(customerMenu);
 
         return customerMenu;
@@ -81,7 +82,7 @@ public class CustomerService {
         List<MenuBillDto> billItems = customerMenus.stream()
                 .map(menu -> new MenuBillDto(menu.getId(), menuMap.get(menu.getMenuId()).getName(),
                         menuMap.get(menu.getMenuId()).getPrice(),
-                        menu.getQuantity())).toList();
+                        menu.getQuantity(), menu.getSize())).toList();
         return new CustomerBill(customer.getId(), customer.getName(), totalAmount, customer.getCreatedAt(), customer.getExitAt(), billItems);
     }
 

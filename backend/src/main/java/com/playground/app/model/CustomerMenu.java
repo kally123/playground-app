@@ -2,6 +2,8 @@ package com.playground.app.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,6 +31,10 @@ public class CustomerMenu {
     private Long menuId;
 
     private int quantity;
+
+    @Column(nullable = true)
+    @Enumerated(EnumType.STRING)
+    private MenuSize size;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
